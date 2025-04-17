@@ -38,6 +38,8 @@ namespace CodeNet.Infrastructure.Repositories
 
         public async Task<UserModel> GetById(Guid id) => await _context.Usuarios.FirstOrDefaultAsync(u => u.Id == id);
 
+        public async Task<UserModel> GetByName(string nome) => await _context.Usuarios.FirstOrDefaultAsync(u => u.Nome.ToLower().Trim() == nome.ToLower().Trim());
+
         public async Task<UserModel> UpdateUser(UserModel user)
         {
             _context.Update(user);

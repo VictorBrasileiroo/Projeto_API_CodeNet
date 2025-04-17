@@ -63,7 +63,7 @@ namespace CodeNet.Application.Services.AuthUser
         {
             if (await _repository.EmailExist(dto.Email)) throw new Exception("Email já cadastrado!");
 
-            var validator = new UserValidator();
+            var validator = new AuthValidator();
             var result = validator.Validate(dto);
 
             if(!result.IsValid)

@@ -8,6 +8,8 @@ using CodeNet.Infrastructure.Context;
 using CodeNet.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
+using CodeNet.Application.Interfaces.User;
+using CodeNet.Application.Services.User;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +32,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthUserService, AuthUserService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 var jwt = builder.Configuration.GetSection("Jwt");
 

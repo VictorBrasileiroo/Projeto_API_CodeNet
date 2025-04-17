@@ -37,6 +37,7 @@ namespace CodeNet.Api.Controllers.v1
                 var response = new
                 {
                     user.Id,
+                    user.Nome,
                     user.Email,
                     user.Role,
                     user.Genero,
