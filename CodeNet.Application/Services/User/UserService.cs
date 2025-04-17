@@ -28,6 +28,15 @@ namespace CodeNet.Application.Services.User
 
             if (!BCrypt.Net.BCrypt.Verify(password, user.PasswordHash)) throw new UnauthorizedAccessException("Senha incorreta");
 
+            var validator = new SenhaValidator();
+            var result = validator.Validate(newPassword);
+
+            if (!result.IsValid)
+            {
+                var erros = string.Join("; ", result.Errors.Select(e => e.ErrorMessage));
+                throw new ValidationException(erros);
+            }
+
             var novoHash = BCrypt.Net.BCrypt.HashPassword(newPassword);
 
             user.PasswordHash = novoHash;
