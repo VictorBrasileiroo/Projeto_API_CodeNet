@@ -1,4 +1,6 @@
 using System.Reflection;
+using CodeNet.Application.Interfaces.AuthUser;
+using CodeNet.Application.Services.AuthUser;
 using CodeNet.Core.IRepositories;
 using CodeNet.Infrastructure.Context;
 using CodeNet.Infrastructure.Repositories;
@@ -24,6 +26,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IAuthUserService, AuthUserService>();
 
 var app = builder.Build();
 
