@@ -1,17 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Security.Claims;
 using CodeNet.Application.Dto.AuthUser;
 using CodeNet.Application.Interfaces.AuthUser;
 using CodeNet.Core.Models;
 using CodeNet.Core.Shared;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CodeNet.Api.Controllers.v1
 {
+    /// <summary>
+    /// Controlador responsável pelas operações de autenticação de usuários.
+    /// </summary>
     [Route("api/v1/auth")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -19,6 +18,14 @@ namespace CodeNet.Api.Controllers.v1
         private readonly IAuthUserService _service;
         public AuthController(IAuthUserService service) => _service = service;
 
+        /// <summary>
+        /// Registra um novo usuário na aplicação.
+        /// </summary>
+        /// <param name="dto">Dados de cadastro do usuário.</param>
+        /// <returns>Retorna os dados do usuário criado e um token JWT.</returns>
+        /// <response code="200">Usuário registrado com sucesso.</response>
+        /// <response code="400">Erro de validação.</response>
+        /// <response code="404">Usuário já existe com o e-mail informado.</response>
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequestDto dto)
         {
@@ -50,6 +57,13 @@ namespace CodeNet.Api.Controllers.v1
             }
         }
 
+        /// <summary>
+        /// Realiza o login do usuário e gera um token JWT.
+        /// </summary>
+        /// <param name="dto">Dados de login do usuário.</param>
+        /// <returns>Retorna os dados do usuário autenticado e o token JWT.</returns>
+        /// <response code="200">Login realizado com sucesso.</response>
+        /// <response code="404">Credenciais inválidas.</response>
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestDto dto)
         {
@@ -78,6 +92,12 @@ namespace CodeNet.Api.Controllers.v1
             }
         }
 
+        /// <summary>
+        /// Retorna as informações do usuário autenticado.
+        /// </summary>
+        /// <returns>Dados completos do usuário logado.</returns>
+        /// <response code="200">Informações obtidas com sucesso.</response>
+        /// <response code="500">Erro interno ao recuperar informações do usuário.</response>
         [Authorize]
         [HttpGet("me")]
         public async Task<IActionResult> InfosUser()
