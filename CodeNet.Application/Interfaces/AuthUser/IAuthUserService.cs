@@ -12,6 +12,7 @@ namespace CodeNet.Application.Interfaces.AuthUser
     {
         Task<UserModel> ValidacaoCredenciais(string email, string password);
         Task<UserModel> Register(RegisterRequestDto dto);
+        Task<UserModel> InfosUser(Guid id);
         Task<string> GerarToken(UserModel user);
     }
 }

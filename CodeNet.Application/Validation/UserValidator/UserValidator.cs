@@ -31,8 +31,8 @@ namespace CodeNet.Application.Validation.UserValidator
             RuleFor(x => x.Role)
                 .NotEmpty().WithMessage("O papel do usuário é obrigatório.")
                 .Must(n => n != "string").WithMessage("Digite um nome válido")
-                .Must(r => r == "Admin" || r == "User" || r == "Dev")
-                .WithMessage("Role inválido. Use: Admin, User ou Dev.");
+                .Must(r => r == "Admin" || r == "User")
+                .WithMessage("Role inválido");
 
             RuleFor(x => x.Criacao)
                 .LessThanOrEqualTo(DateTime.UtcNow).WithMessage("A data de criação não pode ser futura.");

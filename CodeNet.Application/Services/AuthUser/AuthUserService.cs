@@ -53,6 +53,12 @@ namespace CodeNet.Application.Services.AuthUser
             return Task.FromResult(new JwtSecurityTokenHandler().WriteToken(token));
         }
 
+        public async Task<UserModel> InfosUser(Guid id)
+        {
+            var user = await _repository.GetById(id);
+            return user;
+        }
+
         public async Task<UserModel> Register(RegisterRequestDto dto)
         {
             if (await _repository.EmailExist(dto.Email)) throw new Exception("Email já cadastrado!");
