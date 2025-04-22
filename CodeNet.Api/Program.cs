@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Text;
 using CodeNet.Application.Interfaces.User;
 using CodeNet.Application.Services.User;
+using CodeNet.Application.Interfaces.Grupo;
+using CodeNet.Application.Services.Grupo;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +35,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthUserService, AuthUserService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IGrupoRepository, GrupoRepository>();
+builder.Services.AddScoped<IGrupoMembroRepository, GrupoMembroRepository>();
+builder.Services.AddScoped<IGrupoMembroService, GrupoMembroService>();
+builder.Services.AddScoped<IGrupoService, GrupoService>();
 
 var jwt = builder.Configuration.GetSection("Jwt");
 
