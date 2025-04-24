@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CodeNet.Application.Dto.User;
+using CodeNet.Application.Interfaces.Grupo;
 using CodeNet.Application.Interfaces.User;
 using CodeNet.Application.Validations.UserValidator;
 using CodeNet.Core.IRepositories;
@@ -15,10 +16,13 @@ namespace CodeNet.Application.Services.User
     public class UserService : IUserService
     {
         private readonly IUserRepository _repository;
-
-        public UserService(IUserRepository repository)
+        private readonly IGrupoMembroRepository _repositoryGrupoMembro;
+        private readonly IGrupoRepository _repositoryGrupo;
+        public UserService(IUserRepository repository, IGrupoMembroRepository repositoryGrupoMembro, IGrupoRepository repositoryGrupo)
         {
             _repository = repository;
+            _repositoryGrupoMembro = repositoryGrupoMembro;
+            _repositoryGrupo = repositoryGrupo;
         }
 
         public async Task<UserModel> AlterarSenha(string password,string newPassword, Guid id)
@@ -91,6 +95,36 @@ namespace CodeNet.Application.Services.User
             if (user == null) throw new Exception("Usuário não encontrado!");
 
             if (!BCrypt.Net.BCrypt.Verify(password, user.PasswordHash)) throw new UnauthorizedAccessException("Senha incorreta");
+
+            //antes de remover -> verificar se ele é adm de algum grupo
+            var gruposDoUser = await _repositoryGrupoMembro.GetGruposPorUser(user.Id);
+
+            if (gruposDoUser.Any())
+            {
+                foreach(var grupo in gruposDoUser)
+                {
+                    var grupoId = grupo.Id;
+
+                    var membro = await _repositoryGrupoMembro.GetMembro(user.Id, grupoId);
+                    if(membro?.Papel == "Admin")
+                    {
+                        var membros = await _repositoryGrupoMembro.GetMembrosPorGrupo(grupoId);
+                        var membrosRestantes = membros.Where(m => m.IdUser != user.Id).ToList();
+
+                        if (!membrosRestantes.Any())
+                        {
+                            var grupoExcluir = await _repositoryGrupo.GetById(grupoId);
+                            await _repositoryGrupo.DeleteGrupo(grupoExcluir);
+                        }
+                        else
+                        {
+                            var novoAdmin = membrosRestantes.OrderBy(m => m.EntrouEm).First();
+                            novoAdmin.Papel = "Admin";
+                            await _repositoryGrupoMembro.UpdateMembro(novoAdmin);
+                        }
+                    }
+                }
+            }
 
             var response = await _repository.DeleteUser(user);
             return response;

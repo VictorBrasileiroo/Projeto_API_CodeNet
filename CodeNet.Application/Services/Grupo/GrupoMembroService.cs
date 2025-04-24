@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CodeNet.Application.Interfaces.Grupo;
 using CodeNet.Core.IRepositories;
 using CodeNet.Core.Models;
+using CodeNet.Core.Shared;
 
 namespace CodeNet.Application.Services.Grupo
 {
@@ -20,7 +21,6 @@ namespace CodeNet.Application.Services.Grupo
             _repositoryGrupo = repositoryGrupo;
         }
 
-        //USA NO CONTROLE NA HORA DE EDITAR O GRUPO --< GRUPO SERVICE
         public async Task<bool> EhAdmin(Guid idUser, Guid idGrupo)
         {
             var membro = await _repository.GetMembro(idUser, idGrupo);
@@ -55,19 +55,19 @@ namespace CodeNet.Application.Services.Grupo
             return await _repository.CreateMembro(membro);
         }
 
-        public async Task<List<GrupoMembroModel>> ListarMembros(Guid idGrupo)
+        public async Task<List<UserResponseCoreDto>> ListarMembros(Guid idGrupo)
         {
             var grupo = await _repositoryGrupo.GetById(idGrupo);
             if (grupo == null) throw new KeyNotFoundException("Esse grupo não existe");
 
-            var response = await _repository.GetMembrosPorGrupo(idGrupo);
+            var response = await _repository.GetMembrosParaExibir(idGrupo);
             return response;
         }
 
-        public async Task<List<GrupoMembroModel>> ListarMeusGrupos(Guid idUser)
+        public async Task<List<GrupoModel>> ListarMeusGrupos(Guid idUser)
         {
             var grupos = await _repository.GetGruposPorUser(idUser);
-            if (grupos == null) throw new Exception("O usuário não está em nenhum grupo");
+            if (!grupos.Any()) throw new Exception("O usuário não está em nenhum grupo");
             return grupos;
         }
 

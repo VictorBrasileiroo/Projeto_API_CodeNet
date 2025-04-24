@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CodeNet.Application.Dto;
+using CodeNet.Application.Dto.Grupo;
 using CodeNet.Core.IRepositories;
 using CodeNet.Core.Models;
 

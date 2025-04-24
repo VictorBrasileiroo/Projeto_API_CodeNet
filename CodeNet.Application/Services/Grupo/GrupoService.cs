@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CodeNet.Application.Dto;
+using CodeNet.Application.Dto.Grupo;
 using CodeNet.Application.Interfaces.Grupo;
 using CodeNet.Application.Validations.GrupoValidator;
 using CodeNet.Core.IRepositories;
@@ -34,12 +34,14 @@ namespace CodeNet.Application.Services.Grupo
                 throw new ValidationException(erros);
             }
 
+            if (await _repository.ExisteTitulo(dto.Titulo)) throw new InvalidOperationException("Esse título já existe");
+
             var grupo = new GrupoModel()
             {
                 Id = Guid.NewGuid(),
                 Titulo = dto.Titulo!.Trim(),
                 Descricao = dto.Descricao,
-                CriadoEm = dto.CriadoEm,
+                CriadoEm = DateTime.UtcNow,
             };
 
             var grupoCriado = await _repository.CreateGrupo(grupo);
@@ -69,7 +71,7 @@ namespace CodeNet.Application.Services.Grupo
 
             if (dto.Titulo != grupo.Titulo && await _repository.ExisteTitulo(dto.Titulo)) throw new InvalidOperationException("Esse título já existe");
 
-            var validator = new GrupoValidator();
+            var validator = new GrupoEditarValidator();
             var result = validator.Validate(dto);
 
             if (!result.IsValid)
@@ -99,8 +101,9 @@ namespace CodeNet.Application.Services.Grupo
 
         public async Task<List<GrupoModel>> ListarTodos()
         {
-            var response =  await _repository.GetAll();
-            return response;
+            var grupos = await _repository.GetAll();
+            if (!grupos.Any()) throw new Exception("Nenhum grupo cadastrado");
+            return grupos;
         }
 
         private void AtualizarCampoSeMudou<T>(T campoAtual, T novoValor, Action<T> atualizarCampo)

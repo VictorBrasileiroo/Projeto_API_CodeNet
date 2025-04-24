@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CodeNet.Core.Models;
+using CodeNet.Core.Shared;
 
 namespace CodeNet.Application.Interfaces.Grupo
 {
@@ -11,8 +12,8 @@ namespace CodeNet.Application.Interfaces.Grupo
     {
         Task<GrupoMembroModel> EntrarNoGrupo(Guid idUser, Guid idGrupo);
         Task<GrupoMembroModel> SairDoGrupo(Guid idUser, Guid idGrupo);
-        Task<List<GrupoMembroModel>> ListarMembros(Guid idGrupo);
-        Task<List<GrupoMembroModel>> ListarMeusGrupos(Guid idUser);
+        Task<List<UserResponseCoreDto>> ListarMembros(Guid idGrupo);
+        Task<List<GrupoModel>> ListarMeusGrupos(Guid idUser);
         Task<bool> EhAdmin(Guid idUser, Guid idGrupo);
         Task<bool> EhMembro(Guid idUser, Guid idGrupo);
     }
