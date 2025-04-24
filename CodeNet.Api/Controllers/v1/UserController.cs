@@ -44,7 +44,7 @@ namespace CodeNet.Api.Controllers.v1
         }
 
         /// <summary>
-        /// Remove a conta do usuário logado, mediante verificação de senha.
+        /// Remove a conta do usuário logado, mediante verificação de senha - Authorize.
         /// </summary>
         [Authorize]
         [HttpDelete("me")]
@@ -67,7 +67,7 @@ namespace CodeNet.Api.Controllers.v1
         }
 
         /// <summary>
-        /// Altera a senha do usuário logado.
+        /// Altera a senha do usuário logado - Authorize.
         /// </summary>
         [Authorize]
         [HttpPut("alterar-senha")]
@@ -90,7 +90,7 @@ namespace CodeNet.Api.Controllers.v1
         }
 
         /// <summary>
-        /// Atualiza o perfil do usuário logado.
+        /// Atualiza o perfil do usuário logado - Authorize.
         /// </summary>
         [Authorize]
         [HttpPut("me")]
@@ -113,7 +113,7 @@ namespace CodeNet.Api.Controllers.v1
         }
 
         /// <summary>
-        /// Remove um usuário específico (somente Admin).
+        /// Remove um usuário específico (somente Admin) - Authorize.
         /// </summary>
         [Authorize(Roles = "Admin")]
         [HttpDelete("adm/{id}")]
@@ -131,7 +131,7 @@ namespace CodeNet.Api.Controllers.v1
         }
 
         /// <summary>
-        /// Lista todos os usuários cadastrados (somente Admin).
+        /// Lista todos os usuários cadastrados (somente Admin) - Authorize.
         /// </summary>
         [Authorize(Roles = "Admin")]
         [HttpGet]

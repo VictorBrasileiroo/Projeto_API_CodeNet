@@ -50,11 +50,11 @@ namespace CodeNet.Api.Controllers.v1
             }
             catch (ValidationException vex)
             {
-                return StatusCode(400, new ResponseModel<string>(false, "Erro de validação", vex.Message));
+                return BadRequest(new ResponseModel<string>(false, "Erro de validação", vex.Message));
             }
             catch (Exception ex)
             {
-                return StatusCode(404, new ResponseModel<string>(false, "Usuário já cadastrado, tente outro email", ex.Message));
+                return StatusCode(500, new ResponseModel<string>(false, "Usuário já cadastrado, tente outro email", ex.Message));
             }
         }
 
@@ -94,7 +94,7 @@ namespace CodeNet.Api.Controllers.v1
         }
 
         /// <summary>
-        /// Retorna as informações do usuário autenticado.
+        /// Retorna as informações do usuário autenticado - Authorize.
         /// </summary>
         /// <returns>Dados completos do usuário logado.</returns>
         /// <response code="200">Informações obtidas com sucesso.</response>

@@ -42,7 +42,7 @@ namespace CodeNet.Api.Controllers.v1
         }
 
         /// <summary>
-        /// Cria um novo grupo com o usuário logado como administrador.
+        /// Cria um novo grupo com o usuário logado como administrador - Authorize.
         /// </summary>
         [Authorize]
         [HttpPost("criar-grupo")]
@@ -69,7 +69,7 @@ namespace CodeNet.Api.Controllers.v1
         }
 
         /// <summary>
-        /// Edita os dados de um grupo, desde que o usuário seja administrador.
+        /// Edita os dados de um grupo, desde que o usuário seja administrador - Authorize.
         /// </summary>
         [Authorize]
         [HttpPut("{idGrupo}")]
@@ -104,7 +104,7 @@ namespace CodeNet.Api.Controllers.v1
         }
 
         /// <summary>
-        /// Exclui um grupo, desde que o usuário seja administrador.
+        /// Exclui um grupo, desde que o usuário seja administrador - Authorize.
         /// </summary>
         [Authorize]
         [HttpDelete("{idGrupo}")]
@@ -131,7 +131,7 @@ namespace CodeNet.Api.Controllers.v1
         }
 
         /// <summary>
-        /// Adiciona o usuário logado ao grupo informado.
+        /// Adiciona o usuário logado ao grupo informado - Authorize.
         /// </summary>
         [Authorize]
         [HttpGet("{idGrupo}/entrar-grupo")]
@@ -158,7 +158,7 @@ namespace CodeNet.Api.Controllers.v1
         }
 
         /// <summary>
-        /// Remove o usuário logado do grupo informado.
+        /// Remove o usuário logado do grupo informado - Authorize.
         /// </summary>
         [Authorize]
         [HttpGet("{idGrupo}/sair-grupo")]
@@ -206,7 +206,7 @@ namespace CodeNet.Api.Controllers.v1
         }
 
         /// <summary>
-        /// Lista todos os grupos que o usuário logado participa.
+        /// Lista todos os grupos que o usuário logado participa - Authorize.
         /// </summary>
         [Authorize]
         [HttpGet("meus-grupos")]
