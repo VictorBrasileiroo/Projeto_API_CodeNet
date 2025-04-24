@@ -12,6 +12,9 @@ using CodeNet.Application.Interfaces.User;
 using CodeNet.Application.Services.User;
 using CodeNet.Application.Interfaces.Grupo;
 using CodeNet.Application.Services.Grupo;
+using CodeNet.Application.Interfaces.GrupoMembro;
+using CodeNet.Application.Interfaces.Mensagem;
+using CodeNet.Application.Services.Mensagem;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +42,8 @@ builder.Services.AddScoped<IGrupoRepository, GrupoRepository>();
 builder.Services.AddScoped<IGrupoMembroRepository, GrupoMembroRepository>();
 builder.Services.AddScoped<IGrupoMembroService, GrupoMembroService>();
 builder.Services.AddScoped<IGrupoService, GrupoService>();
+builder.Services.AddScoped<IMensagemRepository, MensagemRepository>();
+builder.Services.AddScoped<IMensagemService, MensagemService>();
 
 var jwt = builder.Configuration.GetSection("Jwt");
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using CodeNet.Core.Models;
 using CodeNet.Core.Shared;
 
-namespace CodeNet.Application.Interfaces.Grupo
+namespace CodeNet.Application.Interfaces.GrupoMembro
 {
     public interface IGrupoMembroService
     {

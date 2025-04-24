@@ -2,6 +2,7 @@
 using CodeNet.Application.Dto.Grupo;
 using CodeNet.Application.Dto.User;
 using CodeNet.Application.Interfaces.Grupo;
+using CodeNet.Application.Interfaces.GrupoMembro;
 using CodeNet.Core.Models;
 using CodeNet.Core.Shared;
 using Microsoft.AspNetCore.Authorization;
