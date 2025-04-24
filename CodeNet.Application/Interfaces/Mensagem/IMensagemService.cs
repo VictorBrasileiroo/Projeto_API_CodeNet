@@ -13,6 +13,6 @@ namespace CodeNet.Application.Interfaces.Mensagem
         Task<MensagemModel> EnviarMensagem(MensagemDto dto, Guid idUser, Guid idGrupo);
         Task<MensagemModel> EditarMensagem(MensagemDto dto, Guid idMensagem, Guid idUser);
         Task<MensagemModel> ExcluirMensagem(Guid idMensagem, Guid idUser);
-        Task<List<MensagemModel>> ListarMensagensDoGrupo(Guid idGrupo);
+        Task<List<MensagemListaDto>> ListarMensagensDoGrupo(Guid idGrupo);
     }
 }

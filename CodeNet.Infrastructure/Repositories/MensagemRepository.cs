@@ -26,7 +26,7 @@ namespace CodeNet.Infrastructure.Repositories
             return mensage;
         }
 
-        public async Task<List<MensagemModel>> GetAllByGrupo(Guid idGrupo) => await _context.Mensagens.Where(m => m.IdGrupo == idGrupo).ToListAsync();
+        public async Task<List<MensagemModel>> GetAllByGrupo(Guid idGrupo) => await _context.Mensagens.Where(m => m.IdGrupo == idGrupo).Include(m => m.User).OrderBy(m => m.EnviadoEm).ToListAsync();
 
         public async Task<MensagemModel> GetById(Guid idMensage) => await _context.Mensagens.FirstOrDefaultAsync(m => m.Id == idMensage);
 

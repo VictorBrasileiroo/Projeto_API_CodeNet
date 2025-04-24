@@ -51,6 +51,7 @@ namespace CodeNet.Application.Services.Mensagem
             if (mensagem.IdUser != membro.IdUser) throw new UnauthorizedAccessException("Você não tem permissão para editar esta mensagem");
 
             AtualizarCampoSeMudou(mensagem.Comentario, dto.Comentario, novoValor => mensagem.Comentario = novoValor);
+            mensagem.Editado = true;
 
             return await _repository.UpdateMensage(mensagem);
         }
@@ -102,14 +103,23 @@ namespace CodeNet.Application.Services.Mensagem
 
         }
 
-        public async Task<List<MensagemModel>> ListarMensagensDoGrupo(Guid idGrupo)
+        public async Task<List<MensagemListaDto>> ListarMensagensDoGrupo(Guid idGrupo)
         {
             var grupo = await _repositoryGrupo.GetById(idGrupo);
             if(grupo == null) throw new KeyNotFoundException("Grupo não encontrado");
 
             var mensagens = await _repository.GetAllByGrupo(idGrupo);
             if (!mensagens.Any()) throw new KeyNotFoundException("Ainda não há mensagens neste grupo");
-            return mensagens;
+
+            var response = mensagens.Select(m => new MensagemListaDto()
+            {
+                NomeUsuario = m.User?.Nome,
+                Comentario = m.Comentario,
+                EnviadoEm = m.EnviadoEm,
+                Editado = m.Editado,
+            }).ToList();
+
+            return response;
         }
 
         private void AtualizarCampoSeMudou<T>(T campoAtual, T novoValor, Action<T> atualizarCampo)
