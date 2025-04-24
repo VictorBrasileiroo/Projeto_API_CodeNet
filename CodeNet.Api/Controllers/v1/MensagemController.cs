@@ -45,14 +45,66 @@ namespace CodeNet.Api.Controllers.v1
             }
         }
 
-        //[Authorize]
-        [HttpGet("grupos/{idGrupo}/mensagens")]
+        [Authorize]
+        [HttpGet("{idGrupo}/mensagens")]
         public async Task<IActionResult> ListarMensagensGrupo(Guid idGrupo)
         {
             try
             {
                 var response = await _service.ListarMensagensDoGrupo(idGrupo);
                 return Ok(new ResponseModel<List<MensagemListaDto>>(true, "Mensagens listadas", response));
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new ResponseModel<string>(false, "Erro de busca", ex.Message));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ResponseModel<string>(false, "Erro interno", ex.Message));
+            }
+        }
+
+            [Authorize]
+            [HttpPut("{idGrupo}/mensagens/{idMensagem}/editar-mensagem")]
+            public async Task<IActionResult> EditarMensagem(Guid idGrupo, Guid idMensagem, [FromBody] MensagemDto dto)
+            {
+                try
+                {
+                    var idUser = User.GetUserId();
+                    var response = await _service.EditarMensagem(dto, idMensagem, idUser);
+                    return Ok(new ResponseModel<MensagemModel>(true, "Mensagem editada", response));
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    return NotFound(new ResponseModel<string>(false, "Erro de autorização", ex.Message));
+                }
+                catch (KeyNotFoundException ex)
+                {
+                    return NotFound(new ResponseModel<string>(false, "Erro de busca", ex.Message));
+                }
+                catch (ValidationException ex)
+                {
+                    return BadRequest(new ResponseModel<string>(false, "Erro de validação", ex.Message));
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(new ResponseModel<string>(false, "Erro interno", ex.Message));
+                }
+            }
+
+        [Authorize]
+        [HttpDelete("{idGrupo}/mensagens/{idMensagem}/excluir-mensagem")]
+        public async Task<IActionResult> ExcluirMensagem(Guid idGrupo, Guid idMensagem)
+        {
+            try
+            {
+                var idUser = User.GetUserId();
+                var response = await _service.ExcluirMensagem(idMensagem, idUser);
+                return Ok(new ResponseModel<MensagemModel>(true, "Mensagem excluida", response));
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return NotFound(new ResponseModel<string>(false, "Erro de autorização", ex.Message));
             }
             catch (KeyNotFoundException ex)
             {

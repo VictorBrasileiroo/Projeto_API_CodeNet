@@ -97,7 +97,9 @@ namespace CodeNet.Application.Services.Mensagem
            var membro = await _repositoryMembro.GetMembro(idUser, mensagem.IdGrupo);
            if (membro == null) throw new KeyNotFoundException("Você não faz parte do grupo");
 
-           if (mensagem.IdUser != membro.IdUser && membro.Papel != "Admin") throw new UnauthorizedAccessException("Você não tem permissão para excluir esta mensagem");
+            var user = await _repositoryUser.GetById(idUser);
+
+           if (mensagem.IdUser != user.Id && membro.Papel != "Admin") throw new UnauthorizedAccessException("Você não tem permissão para excluir esta mensagem");
 
            return await _repository.RemoveMensage(mensagem);
 
@@ -113,6 +115,7 @@ namespace CodeNet.Application.Services.Mensagem
 
             var response = mensagens.Select(m => new MensagemListaDto()
             {
+                Id = m.Id,
                 NomeUsuario = m.User?.Nome,
                 Comentario = m.Comentario,
                 EnviadoEm = m.EnviadoEm,

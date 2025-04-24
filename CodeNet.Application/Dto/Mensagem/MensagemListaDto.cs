@@ -8,6 +8,7 @@ namespace CodeNet.Application.Dto.Mensagem
 {
     public class MensagemListaDto
     {
+        public Guid Id { get; set; }
         public string Comentario { get; set; }
         public DateTime EnviadoEm { get; set; }
         public bool Editado { get; set; }
