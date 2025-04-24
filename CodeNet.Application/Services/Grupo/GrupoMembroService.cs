@@ -79,6 +79,22 @@ namespace CodeNet.Application.Services.Grupo
             var membro = await _repository.GetMembro(idUser, idGrupo);
             if (membro == null) throw new InvalidOperationException("Usuário não participa desse grupo!");
 
+            if(membro.Papel == "Admin")
+            {
+                var membros = await _repository.GetMembrosPorGrupo(grupo.Id);
+                var membrosRestantes = membros.Where(m => m.IdUser != idUser);
+                if (!membrosRestantes.Any())
+                {
+                    await _repositoryGrupo.DeleteGrupo(grupo);
+                }
+                else
+                {
+                    var novoAdm = membrosRestantes.OrderBy(m => m.EntrouEm).First();
+                    novoAdm.Papel = "Admin";
+                    await _repository.UpdateMembro(novoAdm);
+                }
+            }
+
             return await _repository.DeleteMembro(membro);
         }
     }

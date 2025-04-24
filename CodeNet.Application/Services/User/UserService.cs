@@ -96,9 +96,8 @@ namespace CodeNet.Application.Services.User
 
             if (!BCrypt.Net.BCrypt.Verify(password, user.PasswordHash)) throw new UnauthorizedAccessException("Senha incorreta");
 
-            //antes de remover -> verificar se ele é adm de algum grupo
-            var gruposDoUser = await _repositoryGrupoMembro.GetGruposPorUser(user.Id);
 
+            var gruposDoUser = await _repositoryGrupoMembro.GetGruposPorUser(user.Id);
             if (gruposDoUser.Any())
             {
                 foreach(var grupo in gruposDoUser)
