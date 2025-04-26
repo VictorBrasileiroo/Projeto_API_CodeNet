@@ -49,6 +49,54 @@ graph TD
 
 ---
 
+## 📃 Formato de Respostas JSON
+
+Todas as respostas da API seguem o mesmo padrão de estrutura:
+
+```json
+{
+  "success": true,
+  "mensagem": "Mensagem descritiva",
+  "dados": []
+}
+```
+
+### Exemplo de sucesso (200 OK):
+```json
+{
+    "success": true,
+    "mensagem": "Todos os grupos listados com sucesso!",
+    "dados": [
+        {
+            "id": "d5973ee2-2204-4b99-9c11-6e075b40b73b",
+            "titulo": "C# e .NET Brasil",
+            "descricao": "Encontros, dúvidas e novidades sobre C# e o ecossistema .NET.",
+            "criadoEm": "2025-04-24T14:28:38.9561713"
+        }
+    ]
+}
+```
+
+### Exemplo de erro (400 Bad Request):
+```json
+{
+    "success": false,
+    "mensagem": "Erro de operação",
+    "dados": "Usuário já participa desse grupo!"
+}
+```
+
+### Exemplo de erro (404 Not Found):
+```json
+{
+    "success": false,
+    "mensagem": "Erro de busca",
+    "dados": "Esse grupo não existe"
+}
+```
+
+---
+
 ## 📚 Documentação da API
 
 Acesse a documentação completa da API através do Swagger:  
