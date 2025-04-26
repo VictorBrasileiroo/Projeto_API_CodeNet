@@ -170,7 +170,7 @@ Acesse a documentação completa da API através do Swagger:
 
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/CodeNet-API.git
+git clone https://github.com/VictorBrasileiroo/Projeto_API_CodeNet.git
 
 # Entre na pasta do projeto
 cd CodeNet.sln
