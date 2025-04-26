@@ -15,6 +15,7 @@ using CodeNet.Application.Services.Grupo;
 using CodeNet.Application.Interfaces.GrupoMembro;
 using CodeNet.Application.Interfaces.Mensagem;
 using CodeNet.Application.Services.Mensagem;
+using CodeNet.Api.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -77,6 +78,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<RequestLoggingMiddleware>();
 
 app.UseAuthentication();
 app.UseAuthorization();
