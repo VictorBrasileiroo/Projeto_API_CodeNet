@@ -29,4 +29,8 @@
     <ProjectReference Include="..\CodeNet.Infrastructure\CodeNet.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="imgs\" />
+  </ItemGroup>
+
 </Project>
