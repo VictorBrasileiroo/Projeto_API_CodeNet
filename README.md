@@ -1,4 +1,5 @@
 # 💬 API CodeNet
+<img src="https://raw.githubusercontent.com/VictorBrasileiroo/Projeto_API_CodeNet/refs/heads/master/banner.svg"></img>
 
 ![.NET Core](https://img.shields.io/badge/.NET%20Core-8.0-purple)
 ![C#](https://img.shields.io/badge/C%23-12-blue)
@@ -170,7 +171,7 @@ Acesse a documentação completa da API através do Swagger:
 
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/CodeNet-API.git
+git clone https://github.com/VictorBrasileiroo/Projeto_API_CodeNet.git
 
 # Entre na pasta do projeto
 cd CodeNet.sln
