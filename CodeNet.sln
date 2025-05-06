@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeNet.Application", "Code
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeNet.Infrastructure", "CodeNet.Infrastructure\CodeNet.Infrastructure.csproj", "{A444D3AE-D827-41BF-9E10-51D27346EB4F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeNet.UnitTests", "CodeNet.UnitTests\CodeNet.UnitTests.csproj", "{78A729EF-360F-4CE7-9D1C-1648392CD949}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{A444D3AE-D827-41BF-9E10-51D27346EB4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A444D3AE-D827-41BF-9E10-51D27346EB4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A444D3AE-D827-41BF-9E10-51D27346EB4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78A729EF-360F-4CE7-9D1C-1648392CD949}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78A729EF-360F-4CE7-9D1C-1648392CD949}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78A729EF-360F-4CE7-9D1C-1648392CD949}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78A729EF-360F-4CE7-9D1C-1648392CD949}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
